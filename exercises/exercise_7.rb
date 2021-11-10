@@ -22,8 +22,11 @@ end
 
 
 class Store < ActiveRecord::Base
+  has_many :employees
+  validates :name, :annual_revenue, :mens_apparel, :womens_apparel, presence: true
   validates :name, length: { minimum: 3 }
   validates :annual_revenue, numericality: { greater_than_or_equal_to: 0, only_integer: true }
+
 end
 
 puts "Enter name for a new store"
@@ -32,3 +35,4 @@ user_answer = gets.chomp.to_s
 user_store = Store.create(name: user_answer)
 
 
+p user_store.errors.messages.to_s
